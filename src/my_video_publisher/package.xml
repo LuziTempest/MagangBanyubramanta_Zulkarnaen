@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>my_video_publisher</name>
+  <version>0.0.1</version>
+  <description>Package to publish video frames using OpenCV in ROS 2</description>
+
+  <maintainer email="dadhitthana@gmail.com">Your Name</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  
+  <depend>rclcpp</depend>
+  <depend>sensor_msgs</depend>
+  <depend>cv_bridge</depend>
+
+  <exec_depend>opencv</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+

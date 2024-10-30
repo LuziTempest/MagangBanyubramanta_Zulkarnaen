@@ -1,0 +1,6 @@
+log/
+build/
+.vscode/
+install/
+main
+main.cpp

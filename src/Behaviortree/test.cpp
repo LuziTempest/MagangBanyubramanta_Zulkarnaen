@@ -38,9 +38,9 @@ public:
 
     void execute() {
         if (isKeyPressed(key)) {
-            cout << "Success: Key is pressed.\n";
+            cout << "Berhasil: Kunci berhasil ditekan\n";
         } else {
-            cout << "Failure: Key is not pressed.\n";
+            cout << "Gagal: Kunci tidak ditekan.\n";
         }
     }
 private:
@@ -51,7 +51,7 @@ int main() {
     int keyToCheck = 32;
     KeyPressBehavior keyPressBehavior(keyToCheck);
 
-    cout << "Press the backspace key within 3 seconds...\n";
+    cout << "Tekan kunci dalam hitungan 3 detik...\n";
     sleep(3); // Jeda 3 detik buat nekan tombol
     
     keyPressBehavior.execute();

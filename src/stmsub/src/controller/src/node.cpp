@@ -106,22 +106,18 @@
 using namespace std::chrono_literals;
 using namespace std::placeholders;
 
-// Konfigurasi serial
 const std::string PORT = "/dev/tty0";
 const int BAUD_RATE = 115200;
 
 class SerialPublisher : public rclcpp::Node
 {
 private:
-    // Objek ROS
     rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr sub;
     rclcpp::Publisher<stmface::msg::Command>::SharedPtr pub;
-
-    // Objek Serial
+   
     asio::io_service io_;
     asio::serial_port port_;
 
-    // Variabel kontrol
     float current_depth = 10.0, current_yaw = 0.0;
 
     float normalize_yaw(float yaw)
@@ -200,7 +196,6 @@ private:
 
         pub->publish(cmd);
 
-        // Kirim data ke STM32 melalui serial
         send_to_stm32(cmd);
     }
 

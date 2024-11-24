@@ -1,0 +1,145 @@
+START
+1. Initialize ROS2 node "serial_publisher"
+2. Configure serial communication with:
+   - PORT: "/dev/tty0"
+   - BAUD_RATE: 115200
+   - Flow control: software
+   - Parity: none
+   - Stop bits: one
+   - Character size: 8 bits
+
+3. Create subscription to "joy" topic (sensor_msgs/msg/Joy)
+4. Create publisher to "cmd_vel" topic (stmface/msg/Command)
+
+FUNCTION fungsi_subscribe(msg):
+   a. Read joystick inputs:
+      - stick_x, stick_y: axes[0], axes[1]
+      - croskey_x, croskey_y: axes[6], axes[7]
+      - buttons: msg.buttons
+      - Update current_depth using axes[4]
+      - Update current_yaw using axes[3] (normalize to [-180, 180])
+   
+   b. Determine movement:
+      - x = croskey_x (if non-zero) else stick_x
+      - y = croskey_y (if non-zero) else stick_y
+
+   c. Construct stmface/msg/Command message:
+      - cmd.x_cmd = x * -1
+      - cmd.y_cmd = y
+      - cmd.depth = current_depth
+      - cmd.yaw = current_yaw
+      - cmd.x, cmd.y, cmd.a, cmd.b = button values
+
+   d. Publish cmd to "cmd_vel"
+   e. Call send_to_stm32(cmd)
+
+FUNCTION send_to_stm32(cmd):
+   a. Format cmd into JSON-like string
+   b. Send data over serial connection
+   c. Log success or error
+
+MAIN LOOP:
+   1. Wait for joystick input
+   2. Execute fungsi_subscribe for each input message
+END
+
+
+START
+
+1. Inisialisasi node ROS2 "serial_publisher"
+2. Konfigurasi komunikasi serial dengan:
+   - PORT: "/dev/tty0"
+   - BAUD_RATE: 115200
+   - Kontrol aliran: perangkat lunak
+   - Paritas: tidak ada
+   - Bit stop: satu
+   - Ukuran karakter: 8 bit
+
+3. Buat langganan untuk topik "joy" (sensor_msgs/msg/Joy)
+4. Buat penerbit untuk topik "cmd_vel" (stmface/msg/Command)
+
+FUNGSI fungsi_subscribe(msg):
+   a. Baca input joystick:
+      - stick_x, stick_y: axes[0], axes[1]
+      - croskey_x, croskey_y: axes[6], axes[7]
+      - tombol: msg.buttons
+      - Perbarui current_depth menggunakan axes[4]
+      - Perbarui current_yaw menggunakan axes[3] (normalisasi ke [-180, 180])
+   
+   b. Tentukan gerakan:
+      - x = croskey_x (jika tidak nol) atau stick_x
+      - y = croskey_y (jika tidak nol) atau stick_y
+
+   c. Bangun pesan stmface/msg/Command:
+      - cmd.x_cmd = x * -1
+      - cmd.y_cmd = y
+      - cmd.depth = current_depth
+      - cmd.yaw = current_yaw
+      - cmd.x, cmd.y, cmd.a, cmd.b = nilai tombol
+
+   d. Publikasikan cmd ke topik "cmd_vel"
+   e. Panggil send_to_stm32(cmd)
+
+FUNGSI send_to_stm32(cmd):
+   a. Format cmd menjadi string mirip JSON
+   b. Kirim data melalui koneksi serial
+   c. Catat keberhasilan atau kesalahan
+
+LOOP UTAMA:
+   1. Tunggu input joystick
+   2. Eksekusi fungsi_subscribe untuk setiap pesan input
+
+END
+
+
+1. Initialize ROS 2 Node
+   - Create a ROS 2 node for video publishing
+
+2. Open Video File
+   - Open the video file using OpenCV
+
+3. Create Publishers
+   - Create publisher for video frames (camera topic)
+
+4. While Video is Open
+   a. Read Video Frame
+      - Capture the current frame from the video file
+   b. Show Frame with OpenCV
+      - Display the frame in a window using OpenCV
+   c. Convert Frame to ROS Message
+      - Convert the frame into a ROS image message using cv_bridge
+   d. Publish Frame
+      - Publish the ROS image message to the camera topic
+
+5. Repeat Until Video Ends
+   - Repeat the steps for reading, displaying, and publishing frames
+
+6. Shutdown ROS 2 Node
+   - Shut down the node when the video ends or an error occurs
+
+
+
+1. Inisialisasi Node ROS 2
+   - Membuat node ROS 2 untuk penerbitan video.
+
+2. Buka File Video
+   - Membuka file video menggunakan OpenCV.
+
+3. Buat Publisher
+   - Membuat publisher untuk frame video (topik kamera).
+
+4. Selama Video Dibuka
+   a. Baca Frame Video
+      - Menangkap frame saat ini dari file video.
+   b. Tampilkan Frame dengan OpenCV
+      - Menampilkan frame dalam sebuah jendela menggunakan OpenCV.
+   c. Konversi Frame ke Pesan ROS
+      - Mengonversi frame menjadi pesan gambar ROS menggunakan cv_bridge.
+   d. Terbitkan Frame
+      - Menerbitkan pesan gambar ROS ke topik kamera.
+
+5. Ulangi Hingga Video Selesai
+   - Mengulang langkah-langkah membaca, menampilkan, dan menerbitkan frame.
+
+6. Matikan Node ROS 2
+   - Mematikan node ketika video selesai atau terjadi kesalahan.

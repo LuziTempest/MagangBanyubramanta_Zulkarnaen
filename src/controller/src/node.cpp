@@ -5,7 +5,7 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/joy.hpp"
-#include "interfaces/msg/command.h"
+#include "interfaces/msg/command.hpp"
 
 using namespace std::chrono_literals;
 using namespace std::placeholders;

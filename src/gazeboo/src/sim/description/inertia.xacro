@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+	
+	<xacro:macro name="inertial_box" params="x y z m *origin">
+		<inertial>
+			<xacro:insert_block name="origin" />
+			<mass value="${m}"/>
+			<inertia ixx="${(1/12) * m * (y*y + z*z)}" ixy="0.0" ixz="0.0" 
+					 iyy="${(1/12) * m * (x*x + z*z)}" iyz="0.0" 
+					 izz="${(1/12) * m * (x*x + y*y)}"/>
+		</inertial>
+	</xacro:macro>
+
+    <xacro:macro name="reset_plugin" params="*initial_pose">
+    <gazebo>
+      <plugin name="reset_plugin" filename="libgazebo_ros_state_setter.so">
+        <robot_namespace>/robot</robot_namespace>
+        <reset_pose>${initial_pose}</reset_pose>
+        <reset_on_collision>true</reset_on_collision>
+      </plugin>
+    </gazebo>
+    </xacro:macro>
+
+</robot>

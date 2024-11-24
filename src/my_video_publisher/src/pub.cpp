@@ -50,8 +50,8 @@ public:
             cv::cvtColor(mask, mask_colored, cv::COLOR_GRAY2BGR);
             frame.copyTo(mask_colored, mask_red);
 
-            cv::imshow("Original", frame);
-            cv::imshow("Masking", mask_colored);
+            // cv::imshow("Original", frame);
+            // cv::imshow("Masking", mask_colored);
             cv::waitKey(1);
 
             if (cv::waitKey(30) == 'q') rclcpp::shutdown();;
